@@ -108,9 +108,9 @@ with open(globals.json_weekly, "w") as writefile:
 
 cmd_ssh_file = [
         "/usr/bin/ssh",
-        "admin@220.133.29.99",
+        globals.ssh_host, 
         "-p",
-        "61922",
+        globals.ssh_port,
         "cd %s; find . -type f" % globals.path_trans_lo
         ]
 r_ssh = subprocess.check_output(cmd_ssh_file)
