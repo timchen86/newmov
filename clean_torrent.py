@@ -46,9 +46,9 @@ if r1.status_code == 409:
 
 cmd_ssh = [
         "/usr/bin/ssh",
-        "admin@220.133.29.99",
+        globals.ssh_host,
         "-p",
-        "61922",
+        globals.ssh_port,
         "" 
         ]
 
@@ -144,9 +144,9 @@ for f in queue_remove_files_fp:
 
 cmd_ssh_dir = [
         "/usr/bin/ssh",
-        "admin@220.133.29.99",
+        globals.ssh_host,
         "-p",
-        "61922",
+        globals.ssh_port,
         "cd %s; find . -type d" % globals.path_trans_lo
         ]
 
