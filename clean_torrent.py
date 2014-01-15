@@ -52,8 +52,6 @@ cmd_ssh = [
         "" 
         ]
 
-#cmd_ssh = "/usr/bin/ssh admin@220.133.29.99 -p 61922"
-
 for q in queue_transmission:
     try:
         for t in q.get("torrents"):
@@ -118,12 +116,9 @@ r_ssh = subprocess.check_output(cmd_ssh_file)
 l_r_ssh = r_ssh.split("\n")
 del(l_r_ssh[-1])
 
-#m = re.findall('.*(?!sync|.@__thumb|.SyncID|.SyncIgnore|.info|.SyncID|.SyncIgnore|.AppleDouble|.SyncArchive|.part).*', txt, flags=re.M)
 queue_remove_files = []
 
 for r in l_r_ssh:
-    #s = re.match('^(.(?!(!sync|.@__thumb|.SyncID|.SyncIgnore|.info|.SyncID|.SyncIgnore|.AppleDouble|.SyncArchive|.part)))*$', m)
-    #re_m = re.match('(?!.*!sync.*|.*\.@__thumb.*|.*\.SyncID.*|.*\.SyncIgnore.*|.*\.info.*|.*\.SyncID.*|.*\.SyncIgnore.*|.*\.AppleDouble.*|.*\.SyncArchive.*)', r, flags=re.IGNORECASE)
     re_m = re.match('(?!.*/\..*)', r, flags=re.IGNORECASE)
     if re_m:
         queue_remove_files.append(r)
