@@ -3,6 +3,7 @@ import sys
 import json
 import requests
 import globals
+import datetime
 
 data_rpc={
         "method":"torrent-add",
@@ -33,8 +34,9 @@ def add_torrent():
                     r3json = r3.json()
                     if r3json["result"] == "success":
                         t["transmission_id"] = r3json["arguments"]["torrent-added"]["id"] 
+                        t["added"] = str(datetime.datetime.now())
                         print "ok, id=%d" % t["transmission_id"]
-                    
+                        
                     if r3json["result"] == "duplicate torrent":
                         print "duplicate torrent"
                 else:

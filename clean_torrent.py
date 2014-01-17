@@ -43,7 +43,6 @@ if r1.status_code == 409:
     header_session_id = {"x-transmission-session-id": r1.headers["x-transmission-session-id"]}
     r2 = session.post(globals.url_rpc, auth=(globals.user_rpc, globals.passwd_rpc), headers=header_session_id)
 
-
 cmd_ssh = [
         "/usr/bin/ssh",
         globals.ssh_host,
@@ -65,7 +64,7 @@ for q in queue_transmission:
                 print r3json
                 if (r3json.get("result") == "success") \
                         and len(r3json.get("arguments")["torrents"])>0 \
-                        and r3json.get("arguments")["torrents"]["status"]==TR_STATUS_SEED:
+                        and r3json.get("arguments")["torrents"][0]["status"]==TR_STATUS_SEED:
                     # remove the files on 
                     flags_remove = []
                     for f in r3json["arguments"]["torrents"][0]["files"]:
@@ -164,8 +163,8 @@ queue_remove_dirs_fp = [ os.path.join(globals.path_trans_remote, d) for d in que
 for d in queue_remove_dirs_fp:
     try:
         os.removedirs(d)
-        print "successfully remove %s" % d
+        print "successfully remove dir: %s" % d
     except:
-        print "failed to remove %s" % d
+        print "failed to remove dir: %s" % d
         pass
 
