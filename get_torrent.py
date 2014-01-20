@@ -15,8 +15,8 @@ def get_torrent():
         l_weekly = json.load(readfile)
 
     for item in l_weekly:
-        if item.get("torrents"):
-            continue
+        #if item.get("torrents"):
+        #    continue
 
         tpb = TPB('https://thepiratebay.org') # create a TPB object with default domain
         # search for 'public domain' in 'movies' category
@@ -28,8 +28,14 @@ def get_torrent():
         
 
         torrent = [v for i,v in enumerate(search) if i==0]
+        
+        if len(torrent) < 1:
+            continue
 
-        if len(torrent) > 0:
+        # 1. no torrents retrieved
+        # 2. do have torrents and title is different, always get the top rank of torrent
+        if (not item.get("torrents")) or \
+                (item.get("torrents") and item.get("torrents")[0]["title"] != torrent[0].title):
             item["torrents"] = [
                     {
                         "title":torrent[0].title,
