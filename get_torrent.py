@@ -43,8 +43,7 @@ def get_torrent():
                         "created":str(torrent[0].created),
                         "size":torrent[0].size,
                         "seeders":torrent[0].seeders,
-                        "files":torrent[0].files,
-                        "queued":True
+                        "files":torrent[0].files
                         }
                     ]
 

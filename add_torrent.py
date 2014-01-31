@@ -28,7 +28,7 @@ def add_torrent():
         print "Adding: %s ..." % q["title"],
         try:
             for t in q["torrents"]:
-                if t.get("queued") and not t.get("transmission_id"):
+                if not t.get("transmission_id"):
                     data_rpc["arguments"]["filename"] = t["magnet_link"]
                     r3 = session.post(globals.url_rpc, auth=(globals.user_rpc, globals.passwd_rpc), headers=header_session_id, data=json.dumps(data_rpc))
                     r3json = r3.json()

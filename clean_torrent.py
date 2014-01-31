@@ -50,8 +50,8 @@ r3json = r3.json()
 
 ids = []
 
-for item in r3json["arguments"]["torrents"]:
-    if r3json.get("result") == "success":
+if r3json.get("result") == "success":
+    for item in r3json["arguments"]["torrents"]:
         done = datetime.datetime.fromtimestamp(item["doneDate"])
         now = datetime.datetime.now()
         diff = now.day - done.day
@@ -59,21 +59,17 @@ for item in r3json["arguments"]["torrents"]:
             ids.append(item["id"])
             print item["id"], item["doneDate"], item["status"], item["name"]
 
-if len(ids) > 0:
-    data_rpc_tr["arguments"]["ids"]=ids
-    print data_rpc_tr
-    r4 = session.post(
-            globals.url_rpc, 
-            auth=(globals.user_rpc, globals.passwd_rpc), 
-            headers=header_session_id, 
-            data=json.dumps(data_rpc_tr))
-    
-    r4json = r4.json()
-    pprint.pprint(r4json)
+    if len(ids) > 0:
+        data_rpc_tr["arguments"]["ids"]=ids
+        print data_rpc_tr
+        r4 = session.post(
+                globals.url_rpc, 
+                auth=(globals.user_rpc, globals.passwd_rpc), 
+                headers=header_session_id, 
+                data=json.dumps(data_rpc_tr))
+        
+        r4json = r4.json()
+        pprint.pprint(r4json)
 
-    for t in queue_transmission.get("torrents"):
-        if t.get("transmission_id") and t.get("queued"):
-            t["queued"] = False
-    
-    with open(globals.json_weekly, "w") as writefile:
-       json.dump(queue_transmission, writefile, indent=4)
+        with open(globals.json_weekly, "w") as writefile:
+           json.dump(queue_transmission, writefile, indent=4)
