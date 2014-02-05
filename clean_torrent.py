@@ -55,9 +55,10 @@ if r3json.get("result") == "success":
         done = datetime.datetime.fromtimestamp(item["doneDate"])
         now = datetime.datetime.now()
         diff = now.day - done.day
+
         if item["status"] == TR_STATUS_SEED and diff > globals.max_share_days:
+            print item["id"], diff, item["status"], item["name"]
             ids.append(item["id"])
-            print item["id"], item["doneDate"], item["status"], item["name"]
 
     if len(ids) > 0:
         data_rpc_tr["arguments"]["ids"]=ids
