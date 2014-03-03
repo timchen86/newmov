@@ -55,9 +55,14 @@ if r3json.get("result") == "success":
         done = datetime.datetime.fromtimestamp(item["doneDate"])
         now = datetime.datetime.now()
         diff = now.day - done.day
+        diff = now - done
+        
+        try:
+            print item["id"], diff.days, item["status"], item["name"],
+        except:
+            pass
 
-        print item["id"], diff, item["status"], item["name"],
-        if item["status"] == TR_STATUS_SEED and diff > globals.max_share_days:
+        if item["status"] == TR_STATUS_SEED and diff.days > globals.max_share_days:
             print ", removed"   
             ids.append(item["id"])
 
