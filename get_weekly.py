@@ -86,9 +86,10 @@ def get_weekly():
                     print "new movie: %s" % i
 
             l_weekly_new_with_d = l_delta + l_weekly_old
+            l_weekly_max = len(l_weekly_new) * 2
 
             with open(globals.json_weekly, "w") as outfile:
-                json.dump(l_weekly_new_with_d, outfile, indent=4)
+                json.dump(l_weekly_new_with_d[:l_weekly_max], outfile, indent=4)
 
             print "Found %d new movies" % len(l_delta)
             return len(l_delta)

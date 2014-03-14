@@ -56,7 +56,8 @@ if r3json.get("result") == "success":
         now = datetime.datetime.now()
         diff = now.day - done.day
         diff = now - done
-        
+ 
+        # some title may cause the unicode problem.
         try:
             print item["id"], diff.days, item["status"], item["name"],
         except:
@@ -82,3 +83,5 @@ if r3json.get("result") == "success":
 
         with open(globals.json_weekly, "w") as writefile:
            json.dump(queue_transmission, writefile, indent=4)
+          
+
